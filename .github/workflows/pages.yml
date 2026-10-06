@@ -1,0 +1,35 @@
+name: Deploy watercolor tool
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download final pigment data
+        run: git lfs pull --include="pigments.js" --exclude=""
+      - name: Prepare website
+        run: |
+          mkdir _site
+          cp index.html reconstruction.js pigments.js _site/
+          cp -R review _site/review
+          rm -rf _site/review/continuous-playback
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
