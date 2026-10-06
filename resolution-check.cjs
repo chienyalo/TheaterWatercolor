@@ -1,0 +1,3 @@
+const {chromium}=require('/Users/alicialo/Desktop/cinematic-portfolio/node_modules/playwright');
+const fs=require('fs');
+(async()=>{const b=await chromium.launch({headless:true});const p=await b.newPage();for(const resolution of [2,4]){await p.goto('file://'+__dirname+'/index.html?resolution='+resolution);await p.locator('#finish').click();await p.waitForFunction(()=>document.querySelector('#progress').value==='100%');const data=await p.locator('#art').evaluate(c=>c.toDataURL().split(',')[1]);fs.writeFileSync(__dirname+'/review/vector-resolution-'+resolution+'.png',Buffer.from(data,'base64'));}await b.close();})().catch(e=>{console.error(e);process.exit(1)});

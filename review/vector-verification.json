@@ -1,0 +1,26 @@
+{
+  "errors": [],
+  "loads": [
+    "file:///Users/alicialo/Desktop/Theater-Watercolor-Final/index.html",
+    "file:///Users/alicialo/Desktop/Theater-Watercolor-Final/pigments.js",
+    "file:///Users/alicialo/Desktop/Theater-Watercolor-Final/reconstruction.js"
+  ],
+  "replayIdentical": true,
+  "parameterChanges": true,
+  "controls": {
+    "ink": true,
+    "lineWidth": true,
+    "jitter": true,
+    "retrace": true,
+    "reflection": true,
+    "water": true,
+    "grain": true,
+    "edge": true,
+    "whiteSpace": true,
+    "people": true
+  },
+  "progressRetained": "650",
+  "playback": true,
+  "download": "theater-at-dusk-reconstruction.png",
+  "overflow": false
+}

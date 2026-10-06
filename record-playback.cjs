@@ -1,0 +1,25 @@
+const {chromium}=require('/Users/alicialo/Desktop/cinematic-portfolio/node_modules/playwright');
+const fs=require('fs'),path=require('path');
+(async()=>{
+ const browser=await chromium.launch({headless:true});
+ const context=await browser.newContext({viewport:{width:1280,height:1000},recordVideo:{dir:path.join(__dirname,'review/continuous-playback'),size:{width:1280,height:1000}}});
+ const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const videoStart=Date.now();await page.goto('file://'+__dirname+'/index.html');
+ await page.locator('#pause').click();
+ await page.locator('#duration').evaluate(e=>{e.value=30;e.dispatchEvent(new Event('input'));});
+ await page.locator('#speed').evaluate(e=>{e.value=4;e.dispatchEvent(new Event('input'));});
+ const box=await page.locator('#art').boundingBox();
+ const start=(Date.now()-videoStart)/1000;await page.locator('#replay').click();
+ await page.waitForFunction(()=>document.querySelector('#status').textContent==='重建繪製完成',{},{timeout:120000});
+ const finish=(Date.now()-videoStart)/1000;
+ await page.waitForTimeout(500);
+ const finalImage=await page.locator('#art').evaluate(c=>c.toDataURL().split(',')[1]);
+ fs.writeFileSync(path.join(__dirname,'review/playback-final.png'),Buffer.from(finalImage,'base64'));
+ const paletteColors=await page.evaluate(()=>window.TheaterPigments.layers[1].palette.length);
+ const video=page.video();await context.close();
+ await video.saveAs(path.join(__dirname,'review/continuous-playback/full-page.webm'));
+ const metadata={errors,box,start,finish,duration:finish-start,recording:'continuous-playback/full-page.webm',speed:4,simulatedDuration:30,paletteColors,finalImage:'playback-final.png',completion:'all vector events drawn'};
+ fs.writeFileSync(path.join(__dirname,'review/playback-recording.json'),JSON.stringify(metadata,null,2));console.log(metadata);
+ await browser.close();
+ if(errors.length)throw new Error('Playback produced errors');
+})().catch(e=>{console.error(e);process.exit(1)});

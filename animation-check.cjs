@@ -1,0 +1,3 @@
+const {chromium}=require('/Users/alicialo/Desktop/cinematic-portfolio/node_modules/playwright');
+const fs=require('fs');
+(async()=>{const b=await chromium.launch({headless:true});const p=await b.newPage();await p.goto('file://'+__dirname+'/index.html');await p.locator('#pause').click();for(const fraction of [.17,.35,.5,.7,.85,1]){await p.locator('#seek').evaluate((e,v)=>{e.value=Math.round(v*1000);e.dispatchEvent(new Event('input'));},fraction);const data=await p.locator('#art').evaluate(c=>c.toDataURL().split(',')[1]);fs.writeFileSync(__dirname+'/review/animation-'+fraction+'.png',Buffer.from(data,'base64'));}await b.close();})().catch(e=>{console.error(e);process.exit(1)});

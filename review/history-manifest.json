@@ -1,0 +1,147 @@
+[
+  {
+    "name": "01 原始夜景照片",
+    "file": "early/original-photo.jpg",
+    "note": "劇院、水池倒影與夜間窗光"
+  },
+  {
+    "name": "02 水彩參考作品",
+    "file": "reference.png",
+    "note": "後續重建的指定參考圖"
+  },
+  {
+    "name": "早期夜景重構",
+    "file": "early/nightscape.png",
+    "note": "幾何輪廓與透明色塊；構圖簡化"
+  },
+  {
+    "name": "原圖顯現與手部模擬試作",
+    "file": "early/reveal-study.png",
+    "note": "當時的 47% 進度截圖；後續改採逐筆重建"
+  },
+  {
+    "name": "程序水彩試作",
+    "file": "early/generated.png",
+    "note": "增加不規則色塊與紙面顆粒"
+  },
+  {
+    "name": "墨線階段試作",
+    "file": "early/sketch.png",
+    "note": "逐筆速寫的工具截圖"
+  },
+  {
+    "name": "濕材質研究",
+    "file": "early/wet-study.png",
+    "note": "局部濕染与材質試作的工具截圖"
+  },
+  {
+    "name": "墨線形式比較",
+    "file": "early/ink-study.png",
+    "note": "原短段筆觸與連續施力筆觸比較"
+  },
+  {
+    "name": "炭筆感試驗",
+    "file": "early/charcoal.png",
+    "note": "曾試驗炭筆感，之後選擇保留原筆觸"
+  },
+  {
+    "name": "手工重構・第 1 輪",
+    "file": "painting-pass-1.png",
+    "note": "劇院曲面、窗光、街景與倒影的逐輪調整"
+  },
+  {
+    "name": "手工重構・第 2 輪",
+    "file": "painting-pass-2.png",
+    "note": "劇院曲面、窗光、街景與倒影的逐輪調整"
+  },
+  {
+    "name": "手工重構・第 3 輪",
+    "file": "painting-pass-3.png",
+    "note": "劇院曲面、窗光、街景與倒影的逐輪調整"
+  },
+  {
+    "name": "手工重構・第 4 輪",
+    "file": "painting-pass-4.png",
+    "note": "劇院曲面、窗光、街景與倒影的逐輪調整"
+  },
+  {
+    "name": "手工重構・第 5 輪",
+    "file": "painting-pass-5.png",
+    "note": "劇院曲面、窗光、街景與倒影的逐輪調整"
+  },
+  {
+    "name": "手工重構・第 6 輪",
+    "file": "painting-pass-6.png",
+    "note": "劇院曲面、窗光、街景與倒影的逐輪調整"
+  },
+  {
+    "name": "手工重構・第 7 輪",
+    "file": "painting-pass-7.png",
+    "note": "劇院曲面、窗光、街景與倒影的逐輪調整"
+  },
+  {
+    "name": "向量第 1 輪",
+    "file": "vector-first.png",
+    "note": "RGB 色差 20.80；連通色區抽取"
+  },
+  {
+    "name": "向量第 2 輪",
+    "file": "vector-second.png",
+    "note": "RGB 色差 14.45；補回微粒與邊界"
+  },
+  {
+    "name": "向量第 3 輪",
+    "file": "vector-third.png",
+    "note": "RGB 色差 7.88；座標偏移修正"
+  },
+  {
+    "name": "256 色・四倍精度",
+    "file": "vector-global-palette.png",
+    "note": "RGB 色差 4.80；提高取樣精度"
+  },
+  {
+    "name": "色階間隔 8",
+    "file": "vector-step-8.png",
+    "note": "RGB 色差 1.75；補回細微色階"
+  },
+  {
+    "name": "色階間隔 4",
+    "file": "vector-step-4.png",
+    "note": "RGB 色差 0.83；縮小色階差距"
+  },
+  {
+    "name": "完整原始色階・完成版",
+    "file": "vector-latest.png",
+    "note": "RGB 色差 0；不同像素 0"
+  },
+  {
+    "name": "作畫階段 17%",
+    "file": "animation-0.17.png",
+    "note": "完成版同一幅作品的實際畫布進度"
+  },
+  {
+    "name": "作畫階段 35%",
+    "file": "animation-0.35.png",
+    "note": "完成版同一幅作品的實際畫布進度"
+  },
+  {
+    "name": "作畫階段 50%",
+    "file": "animation-0.5.png",
+    "note": "完成版同一幅作品的實際畫布進度"
+  },
+  {
+    "name": "作畫階段 70%",
+    "file": "animation-0.7.png",
+    "note": "完成版同一幅作品的實際畫布進度"
+  },
+  {
+    "name": "作畫階段 85%",
+    "file": "animation-0.85.png",
+    "note": "完成版同一幅作品的實際畫布進度"
+  },
+  {
+    "name": "作畫階段 100%",
+    "file": "animation-1.png",
+    "note": "完成版同一幅作品的實際畫布進度"
+  }
+]

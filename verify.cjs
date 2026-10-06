@@ -1,0 +1,45 @@
+const {chromium}=require('/Users/alicialo/Desktop/cinematic-portfolio/node_modules/playwright');
+const fs=require('fs'),path=require('path');
+(async()=>{
+ const browser=await chromium.launch({headless:true});
+ const page=await browser.newPage({viewport:{width:1400,height:1000}}),errors=[],loads=[];
+ page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>loads.push(r.url()));
+ await page.goto('file://'+path.join(__dirname,'index.html'));
+ await page.locator('#finish').click();
+ await page.waitForFunction(()=>document.querySelector('#progress').value==='100%');
+ const save=async name=>{const data=await page.locator('#art').evaluate(c=>c.toDataURL().split(',')[1]);fs.writeFileSync(path.join(__dirname,'review',name),Buffer.from(data,'base64'));return data;};
+ const first=await save('vector-pass-1.png');
+ await page.screenshot({path:path.join(__dirname,'review/vector-page.png')});
+ await page.locator('#replay').click();await page.locator('#finish').click();
+ const repeated=await save('vector-replay.png');
+ await page.locator('#pause').click();
+ await page.locator('#seek').evaluate(e=>{e.value=650;e.dispatchEvent(new Event('input'));});
+ const before=await page.locator('#art').evaluate(c=>c.toDataURL());
+ await page.locator('#wash').evaluate(e=>{e.value=.7;e.dispatchEvent(new Event('input'));});
+ await page.waitForTimeout(300);
+ const after=await page.locator('#art').evaluate(c=>c.toDataURL());
+ const progress=await page.locator('#seek').inputValue();
+ const controls={};
+ for(const [key,value] of Object.entries({ink:.4,lineWidth:2,jitter:2,retrace:1.5,reflection:.4,water:.9,grain:2,edge:2,whiteSpace:50,people:30})){
+  await page.locator('#reset').click();await page.locator('#finish').click();
+  const initial=await page.locator('#art').evaluate(c=>c.toDataURL());
+  await page.locator('#'+key).evaluate((e,v)=>{e.value=v;e.dispatchEvent(new Event('input'));},value);
+  await page.waitForTimeout(250);
+  controls[key]=initial!==await page.locator('#art').evaluate(c=>c.toDataURL());
+ }
+ await page.locator('#reset').click();await page.locator('#finish').click();
+ await save('vector-latest.png');
+ await page.locator('#replay').click();
+ await page.locator('#duration').evaluate(e=>{e.value=30;e.dispatchEvent(new Event('input'));});
+ await page.locator('#speed').evaluate(e=>{e.value=4;e.dispatchEvent(new Event('input'));});
+ await page.waitForTimeout(400);
+ const playback=+(await page.locator('#seek').inputValue())>0;
+ await page.locator('#finish').click();
+ const downloadPromise=page.waitForEvent('download');await page.locator('#save').click();const download=(await downloadPromise).suggestedFilename();
+ await page.setViewportSize({width:390,height:844});
+ const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth);
+ const results={errors,loads,replayIdentical:first===repeated,parameterChanges:before!==after,controls,progressRetained:progress,playback,download,overflow};
+ fs.writeFileSync(path.join(__dirname,'review/vector-verification.json'),JSON.stringify(results,null,2));console.log(results);
+ await browser.close();
+ if(errors.length||Object.values(controls).some(v=>!v)||progress!=='650'||!playback||overflow)throw new Error('Verification failed; inspect vector-verification.json');
+})().catch(e=>{console.error(e);process.exit(1)});

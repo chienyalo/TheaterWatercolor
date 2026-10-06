@@ -1,0 +1,18 @@
+{
+  "errors": [],
+  "box": {
+    "x": 26,
+    "y": 126.390625,
+    "width": 954,
+    "height": 636
+  },
+  "start": 3.8,
+  "finish": 11.649,
+  "duration": 7.848999999999999,
+  "recording": "continuous-playback/full-page.webm",
+  "speed": 4,
+  "simulatedDuration": 30,
+  "paletteColors": 982031,
+  "finalImage": "playback-final.png",
+  "completion": "all vector events drawn"
+}

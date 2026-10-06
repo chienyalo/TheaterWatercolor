@@ -1,0 +1,17 @@
+{
+  "vector-latest.png": {
+    "equal": true,
+    "different_pixels": 0,
+    "max_channel_difference": 0,
+    "RGB_MAE": 0.0,
+    "RGB_sha256": "5914a3bc3fe8fd08f7a33b0525b3b60cb30c21d5502f9cc3d13f75d1b9ecb888"
+  },
+  "playback-final.png": {
+    "equal": true,
+    "different_pixels": 0,
+    "max_channel_difference": 0,
+    "RGB_MAE": 0.0,
+    "RGB_sha256": "5914a3bc3fe8fd08f7a33b0525b3b60cb30c21d5502f9cc3d13f75d1b9ecb888"
+  },
+  "reference_RGB_sha256": "5914a3bc3fe8fd08f7a33b0525b3b60cb30c21d5502f9cc3d13f75d1b9ecb888"
+}

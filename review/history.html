@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>劇院水彩｜完整歷程比較</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eee8de;color:#403a32;font:14px/1.7 system-ui,sans-serif}main{max-width:1600px;margin:auto;padding:28px}h1,h2,h3{font-weight:500}h1{font-size:28px;margin:0}h2{margin:40px 0 12px}h3{font-size:15px;margin:12px 0 3px}p{color:#756657;margin:6px 0}a{color:#65513c}nav{display:flex;gap:18px;flex-wrap:wrap;margin:18px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}figure{margin:0;background:#faf7ee;padding:12px;border:1px solid #dacdbb;border-radius:8px}figure img{width:100%;height:auto;display:block;aspect-ratio:3/2;object-fit:contain;background:#faf7ee}figure p{font-size:12px}.wide{width:100%;display:block;height:auto}select{font:inherit;padding:8px;background:#faf7ee;border:1px solid #cbbda9;border-radius:5px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:22px}.viewer{overflow:hidden;position:relative;aspect-ratio:3/2;background:#faf7ee}.viewer img{width:100%;display:block}.top{display:flex;gap:18px;flex-wrap:wrap;align-items:center}video{width:100%;display:block;background:#faf7ee}footer{margin:32px 0;color:#756657;font-size:12px}@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){main{padding:16px}.grid,.pair{grid-template-columns:1fr}h1{font-size:23px}}
+</style>
+<main><h1>劇院水彩・完整歷程比較</h1><p>從手工構圖重構，到完整原始色階的向量重建。所有版本使用原尺寸比例。</p>
+<nav><a href="../index.html">作畫工具</a><a href="compare.html">局部放大對照</a><a href="history-overview.png">下載完整比較圖</a><a href="#animation">作畫階段</a></nav>
+<h2>參考圖與版本對照</h2><div class="top"><label>選擇版本 <select id="version"></select></label><p id="description"></p></div>
+<div class="pair"><figure><h3>參考圖</h3><img src="reference.png" alt="原始水彩參考圖"></figure><figure><h3 id="selected-name"></h3><img id="selected-image" alt="選取版本的重建圖"></figure></div>
+<h2>原始照片、參考作品與早期試作</h2><p>保留早期工具原始截圖，包含濕材質、墨線與炭筆感比較。</p><div class="grid" id="early"></div>
+<h2>手工重構：第 1–7 輪</h2><p>校準劇院曲面、高樓、人物、水池與紙白；這些版本仍明顯簡化。</p><div class="grid" id="authored"></div>
+<h2>二、參考衍生向量：輪廓、取樣與色階改進</h2><p>色差是每個 RGB 通道的平均絕對差異，範圍 0–255；它只衡量完成圖，不能衡量作畫動作。</p><div class="grid" id="vectors"></div>
+<h2 id="animation">三、完成版逐筆作畫階段</h2><p>17% 墨線 → 35% 底染 → 50% 天空與樓群 → 70% 劇院 → 85% 街景與倒影 → 100% 完成。</p><div class="grid" id="stages"></div>
+<h2>四、連續作畫影片</h2><video controls preload="metadata" poster="vector-latest.png"><source src="../Theater-Painting.mp4" type="video/mp4"></video>
+<footer>整理：Codex 主 agent。完成版預設參數的 1536 × 1024 RGB 像素與參考一致；動畫順序與筆觸分組由程式推定。早期試作依原有截圖保存；手工輪次與作畫階段各自列出。</footer></main>
+<script src="history-data.js"></script><script>
+const versions=[
+...Array.from({length:7},(_,i)=>({name:`手工重構・第 ${i+1} 輪`,file:`painting-pass-${i+1}.png`,note:['初始區域構圖','校準建築與倒影','細部疊色迭代','曲面與窗光調整','顆粒較粗的試驗','回調顆粒尺度','補上不規則外緣與紙白'][i]+(i===6?' · RGB 色差 48.88':'')})),
+{name:'向量第 1 輪',file:'vector-first.png',note:'連通色區抽取 · RGB 色差 20.80'},
+{name:'向量第 2 輪',file:'vector-second.png',note:'補回微粒與色區邊界 · RGB 色差 14.45'},
+{name:'向量第 3 輪',file:'vector-third.png',note:'修正半像素座標偏移 · RGB 色差 7.88'},
+{name:'256 色・四倍精度',file:'vector-global-palette.png',note:'改善渲染取樣 · RGB 色差 4.80'},
+{name:'色階間隔 8',file:'vector-step-8.png',note:'保留較細顏料色階 · RGB 色差 1.75'},
+{name:'色階間隔 4',file:'vector-step-4.png',note:'進一步保留細微色階 · RGB 色差 0.83'},
+{name:'完整原始色階・完成版',file:'vector-latest.png',note:'RGB 色差 0 · 不同像素 0'}];
+function card(v){const f=document.createElement('figure'),a=document.createElement('a'),im=document.createElement('img'),h=document.createElement('h3'),p=document.createElement('p');a.href=v.file;im.src=v.file;im.alt=v.name;im.loading='lazy';a.append(im);h.textContent=v.name;p.textContent=v.note;f.append(a,h,p);return f;}
+window.HistoryStages.filter(v=>v.file.startsWith('early/')||v.file==='reference.png').forEach(v=>document.querySelector('#early').append(card(v)));
+versions.slice(0,7).forEach(v=>document.querySelector('#authored').append(card(v)));versions.slice(7).forEach(v=>document.querySelector('#vectors').append(card(v)));
+[.17,.35,.5,.7,.85,1].forEach(t=>document.querySelector('#stages').append(card({name:`作畫進度 ${Math.round(t*100)}%`,file:`animation-${t}.png`,note:'完成版的實際畫布擷取'})));
+const choices=window.HistoryStages,select=document.querySelector('#version');choices.forEach((v,i)=>select.add(new Option(v.name,i)));select.value=choices.findIndex(v=>v.file==='vector-latest.png');function update(){const v=choices[+select.value];document.querySelector('#selected-image').src=v.file;document.querySelector('#selected-name').textContent=v.name;document.querySelector('#description').textContent=v.note;}select.onchange=update;update();
+</script></html>
